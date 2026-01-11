@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Documentation</title>
+    <link rel="icon" href="favicon/docu.png" type="image/png">
+    <style>
+        h1, h2, h3, h4, h5, h6 {
+            color: gold;
+            font-weight: bold;
+        }
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            margin: 20px;
+            color: white;
+            font-family: Georgia, 'Times New Roman', Times, serif;
+            font-size: 19px;
+        }
+        ul, ol {
+            margin-left: 20px;
+        }
+        p {
+            margin-bottom: 15px;
+        }
+    </style>
+</head>
+<body style="background-color: #192734;">
+    <header style="text-align: center;font-size: 40px;color:gold;border: 3px solid gold; border-radius: 15px; padding: 10px;">Documentation - How Mini-Geoportal is Made?</header>
+
+<h1>Objectives of Our Mini-Geoportal</h1>
+<ul>
+    <li>To provide users with an interactive platform for geospatial exploration using web maps powered by the Leaflet library.</li>
+    <li>To offer users the ability to switch between multiple base maps such as OpenStreetMap, Satellite Imagery, and OpenCycleMap.</li>
+    <li>To display real-time environmental data layers like soil moisture, cloud cover, wind direction, air quality, and weather information through APIs.</li>
+    <li>To present detailed geospatial datasets of Nepal, including rivers, hydropower plants, transmission lines, airports, and administrative boundaries.</li>
+    <li>To allow users to upload their own data, generate a buffer around it, and download the results as a .geojson file or shapefile for further analysis.</li>
+</ul>
+
+<h1>Front-End</h1>
+
+<h2>1. HTML (HyperText Markup Language)</h2>
+<p>HTML is the backbone of your website, providing the structure and content. It defines the layout of the webpage, including the navigation bar, welcome section, map containers, and footer. It embeds external resources like CSS, JavaScript, and iframes. Uses semantic elements like &lt;header&gt;, &lt;nav&gt;, &lt;section&gt;, and &lt;footer&gt; for better readability and content management.</p>
+
+<h2>2. CSS (Cascading Style Sheets)</h2>
+<p>CSS is used for styling and layout, ensuring the website is visually appealing and responsive. The Custom Styles define the appearance of elements like the navigation bar, buttons, map containers, and text. Responsive Design uses @media queries to ensure the website adapts to different screen sizes.</p>
+<ul>
+    <li>Bootstrap Integration: Combines custom CSS with Bootstrap's pre-defined classes for consistent styling.</li>
+    <li>Animations and Effects: Adds hover effects (e.g., button hover) and transitions for interactive elements.</li>
+</ul>
+
+<h2>3. JavaScript</h2>
+<p>JavaScript adds interactivity and dynamic behavior to the website.</p>
+<ul>
+    <li>Leaflet.js: Powers the interactive map with layers, markers, and popups.</li>
+    <li>API Integration: Fetches real-time data (e.g., soil moisture, cloud cover, wind direction, air quality, and weather) from external APIs like Open-Meteo and OpenWeather.</li>
+    <li>Event Handling: Listens for user interactions (e.g., map clicks) and updates the UI dynamically.</li>
+    <li>DOM Manipulation: Dynamically updates the content of popups and layers based on user input or API responses.</li>
+</ul>
+
+<h2>4. Bootstrap</h2>
+<p>Bootstrap is a front-end framework that simplifies responsive design and provides pre-built UI components.</p>
+<ul>
+    <li>Navigation Bar: Uses Bootstrap's navbar component for a responsive and mobile-friendly navigation menu.</li>
+    <li>Grid System: Organizes content into rows and columns for a structured layout.</li>
+    <li>Utility Classes: Applies Bootstrap's utility classes (e.g., py-4, text-center, container-fluid) for spacing, alignment, and responsiveness.</li>
+    <li>JavaScript Components: Utilizes Bootstrap's JavaScript plugins (e.g., navbar toggler) for interactive elements.</li>
+</ul>
+
+<h2>5. Leaflet.js</h2>
+<p>Leaflet is a lightweight JavaScript library for interactive maps.</p>
+<ul>
+    <li>Base Layers: Integrates multiple base layers (OpenStreetMap, Satellite Imagery, OpenCycleMap) for users to switch between.</li>
+    <li>Overlay Layers: Displays dynamic data layers (e.g., soil moisture, cloud cover, wind direction) fetched from APIs.</li>
+    <li>Markers and Popups: Adds custom markers with popups to display real-time data at specific locations.</li>
+    <li>Layer Control: Provides a layer control panel for users to toggle layers on and off.</li>
+</ul>
+
+<h2>6. APIs (Application Programming Interfaces)</h2>
+<p>APIs fetch real-time data from external sources and integrate it into the website.</p>
+<ul>
+    <li>Open-Meteo API: Retrieves environmental data like soil moisture, cloud cover, and wind direction.</li>
+    <li>OpenWeather API: Fetches weather and air quality data (e.g., temperature, humidity, PM2.5, PM10).</li>
+    <li>Fetch API: Used in JavaScript to make HTTP requests to these APIs and process the responses.</li>
+</ul>
+
+<h2>7. Fonts and Icons</h2>
+<p>Enhances the visual appeal and readability of the website.</p>
+<ul>
+    <li>Google Fonts: Uses Arial, sans-serif and Georgia, 'Times New Roman', Times, serif for typography.</li>
+    <li>Custom Icons: Uses custom icons (e.g., portal.png, soilmoist.png, cloud.png, wind.png, weathpollution.png) for markers and branding.</li>
+</ul>
+
+<h2>8. Favicon</h2>
+<p>Provides a small icon that represents the website in browser tabs and bookmarks. The favicon is linked in the &lt;head&gt; section using &lt;link rel="icon" href="favicon_name.png" type="image/png"&gt;.</p>
+
+<h2>9. Iframes</h2>
+<p>Embeds external content or additional web pages within the website. Embeds another web map using an &lt;iframe&gt;.</p>
+
+<h2>10. Responsive Design</h2>
+<p>Ensures the website works seamlessly across different devices and screen sizes.</p>
+<ul>
+    <li>Uses Bootstrap's grid system and responsive utilities.</li>
+    <li>Sets widths and heights using relative units like vw (viewport width) and vh (viewport height).</li>
+    <li>Adjusts layout and font sizes for smaller screens.</li>
+</ul>
+
+<h2>11. Custom JavaScript Functions</h2>
+<p>Adds custom functionality to the website.</p>
+<ul>
+    <li>Refresh Function: Reloads the page when the "Home" link in the navbar is clicked.</li>
+    <li>Dynamic Data Fetching: Fetches and displays real-time data based on user interactions (e.g., map clicks).</li>
+</ul>
+
+<h2>12. Turf Library</h2>
+<p>Turf.js is a geospatial analysis library used in your application to perform spatial operations on GeoJSON data. It allows the users to determine spatial relationships (e.g., point-in-polygon, intersection) between features, filter and display only the relevant features on the map, and enhance user interaction by providing location-based filtering capabilities.</p>
+
+<h3>Key Turf.js Functions Used</h3>
+<p>Some of the Turf.js functions used in our application are as:</p>
+<ol>
+    <li><strong>turf.point</strong>: Converts a set of coordinates (like longitude and latitude) into a point on the map.
+        <pre>- When given the coordinates and it creates a point feature that can be used for spatial analysis.
+        - Syntax:
+        <i>turf.point([longitude, latitude], { properties })</i>
+        </pre>
+        </li>
+    <li><strong>turf.feature</strong>: Converts a shape (like a polygon or line) into a GeoJSON feature.
+        <pre>When given provide the shape (geometry) and optional properties, and it creates a feature that Turf.js can work with.
+            - Syntax:
+            <i>turf.feature(geometry, { properties });</i>            
+            </pre>
+    </li>
+    <li><strong>turf.booleanPointInPolygon</strong>: Checks if a point is inside a polygon.
+        <pre>- When given a point and a polygon, and it tells you whether the point is inside the polygon (true or false).
+            - Syntax:
+            <i>turf.booleanPointInPolygon(point, polygon);</i>            
+            </pre>
+    </li>
+    <li><strong>turf.intersect</strong>: Finds the overlapping area between two shapes.
+        <pre>- When provided two shapes (like polygons or lines), and it returns the area where they overlap. If they don’t overlap, it returns null.
+            - Syntax:
+            <i>turf.intersect(shape1, shape2);</i>
+            </pre>
+    </li>
+</ol>
+
+<h3>Spatial Operations Performed Using Turf.js</h3>
+<p>Turf.js is used in our application to filter and analyze geographic data as:</p>
+
+<h4>a. Filtering Hydropower Projects by Province or District</h4>
+<p>Filters hydropower projects based on whether they are inside a selected province or district.</p>
+<ul>
+    <li>Each hydropower project is treated as a point.</li>
+    <li>The selected province or district is treated as a polygon.</li>
+    <li>Turf.js checks if the hydropower point is inside the province or district polygon using turf.booleanPointInPolygon.</li>
+    <li>Only the projects inside the selected area are shown on the map.</li>
+</ul>
+
+<h4>b. Filtering Index Sheets by District</h4>
+<p>Filters index sheets based on whether they overlap with a selected district.</p>
+<ul>
+    <li>Each index sheet is treated as a polygon.</li>
+    <li>The selected district is also treated as a polygon.</li>
+    <li>Turf.js checks if the index sheet polygon overlaps with the district polygon using turf.intersect.</li>
+    <li>Only the index sheets that overlap with the district are shown on the map.</li>
+</ul>
+
+<h4>c. Filtering Transmission Lines by Province</h4>
+<p>Filters transmission lines based on whether they overlap with a selected province.</p>
+<ul>
+    <li>Each transmission line is treated as a line.</li>
+    <li>The selected province is treated as a polygon.</li>
+    <li>Turf.js checks if the transmission line overlaps with the province polygon using turf.intersect.</li>
+    <li>Only the lines that overlap with the province are shown on the map.</li>
+</ul>
+
+<h4>d. Filtering Airports by Province</h4>
+<p>Filters airports based on whether they are inside a selected province.</p>
+<ul>
+    <li>Each airport is treated as a point.</li>
+    <li>The selected province is treated as a polygon.</li>
+    <li>Turf.js checks if the airport point is inside the province polygon using turf.booleanPointInPolygon.</li>
+    <li>Only the airports inside the selected province are shown on the map.</li>
+</ul>
+
+<h1>Back-End</h1>
+
+<h2>1. PostgreSQL</h2>
+<p>While PostgreSQL is a backend database, it is mentioned in the context of providing geospatial datasets for download. The front end likely interacts with a backend service that queries PostgreSQL to fetch and serve geospatial data. Vector data was first uploaded and stored in PostgreSQL as tables, which were then fetched and displayed on the website using the Flask framework in Python.</p>
+
+<h2>2. Flask Framework (Python)</h2>
+<p>The structure and functionality of a Flask application is designed to:</p>
+<ul>
+    <li>Download Shapefiles: Allow users to download shapefiles stored in a PostgreSQL database.</li>
+    <li>Buffer Analysis: Enable users to upload shapefiles, perform buffer operations, and download the results.</li>
+</ul>
+
+<h3>Downloading Shapefiles</h3>
+<p>Functionality:</p>
+<ul>
+    <li>Database Connection: The application connects to a PostgreSQL database using the pgsql2shp command-line tool.</li>
+    <li>Shapefile Export: It exports shapefiles from specified tables in the database.</li>
+    <li>Zipping and Downloading: The exported shapefiles are zipped and provided for download.</li>
+</ul>
+
+<h3>Buffer Analysis</h3>
+<p>Functionality:</p>
+<ul>
+    <li>File Upload: Users can upload zipped shapefiles.</li>
+    <li>Buffer Operation: The application performs buffer analysis using geopandas.</li>
+    <li>Result Download: The buffered geometries are saved as a GeoJSON file and made available for download.</li>
+</ul>
+
+<h3>HTML Templates</h3>
+<ul>
+    <li><strong>index.html</strong>: Provides a user interface for downloading shapefiles.</li>
+    <li><strong>buffer.html</strong>: Offers a form for users to upload shapefiles and specify buffer distances.</li>
+</ul>
+
+<h3>Running the Application</h3>
+<p>To execute the application, run:</p>
+<pre><code>python app.py</code></pre>
+<p>The application will be accessible at <a href="http://localhost:5000">http://localhost:5000</a>.</p>
+
+<h3>Conclusion</h3>
+<p>This Flask application provides a straightforward interface for interacting with geospatial data, offering both download capabilities from a PostgreSQL database and buffer analysis on uploaded shapefiles. The modular design ensures ease of maintenance and potential expansion.</p>
+<h1>Limitations</h1>
+<p>
+    When running the web map by directly opening the .html file in a browser using the file:// protocol, the map layers may not load due to <b style="color: gold;">CORS (Cross-Origin Resource Sharing) restrictions</b>. Modern browsers enforce strict security policies to prevent web pages from accessing resources hosted on a different domain, protocol, or port unless explicitly permitted by the server. Since the map tiles and other resources are typically hosted on external servers (e.g., OpenStreetMap, Esri), these restrictions block the resources from loading when the file is accessed locally.
+However, when the .html file is served through a local HTTP server (e.g., using VS Code's Live Server or Python's HTTP server), the browser uses the http:// protocol, which allows the external resources to load properly. This is because the server simulates a proper web environment where CORS policies are less restrictive. To resolve this issue, it is recommended to always run the web map through a local or online HTTP server during development or deployment to ensure that all external resources load correctly.
+
+
+</p>
+</body>
+</html>

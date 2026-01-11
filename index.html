@@ -1,0 +1,512 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mini-Geoportal</title>
+    <link rel="icon" href="favicon/favicon-32x32.png" type="image/png">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <!-- Leaflet CSS -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <style>
+        #map {
+            height: 500px; /* Set the height of the map container */
+            width: 80vw;
+        }
+        button {
+            padding: 10px 20px;
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        iframe {
+            width: 100%;
+            height: 500px; /* Adjust as needed */
+            border: none;
+        }
+        
+        /* Custom Styles */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        .navbar {
+            background-color: #000; /* Black color */
+        }
+
+        .navbar .navbar-brand {
+            color: gold;
+            font-weight: bold; 
+            font-family: Georgia, 'Times New Roman', Times, serif;
+            font-size: 2rem;
+        }
+
+        .navbar .nav-link {
+            color: gold !important;
+            font-weight: 500;
+            margin-right: 15px;
+            font-weight: bold;
+        }
+
+        .navbar .nav-link:hover {
+            background-color: #333; /* Slightly lighter black for hover */
+            border-radius: 5px;
+        }
+
+        .welcome-section {
+            background-image: url('space1.jpg'); /* Only background image */
+            background-size: cover; /* Ensures the image covers the entire section */
+            background-position: center; /* Center the image */
+            color: white;
+            padding: 80px 20px;
+            text-align: center;
+            position: relative;
+        }
+
+        .welcome-section h1 {
+            font-size: 3rem;
+            font-weight: bold;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.4);
+        }
+
+        .welcome-section p {
+            font-size: 1.2rem;
+            margin-bottom: 30px;
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3);
+        }
+
+        .map-container {
+            display: flex;
+            flex-direction: row;
+            align-items: flex-start;
+            margin-bottom: 20px; /* Optional space between the map and footer */
+        }
+        .map-container2 {
+            display: flex;
+            flex-direction: row;
+            align-items: flex-start;
+            margin-bottom: 20px; /* Optional space between the map and footer */
+        }
+    
+        /* Adjust map style to float it to the left */
+        #map {
+            height: 500px;
+            width: 63vw; /* Adjust width of the map */
+            margin-right: 20px; /* Space between map and the paragraph */
+        }
+        #map-container {
+            height: 600px;
+
+            
+        }
+        
+    
+        /* Style for the paragraph section */
+        .map-description {
+            flex: 1; /* Allow the description to take up the remaining space */
+            color: white;
+            padding: 20px;
+            font-family: Georgia, 'Times New Roman', Times, serif;
+            font-size: 17px;
+            border: 3px solid gold; border-radius: 15px; padding: 10px;
+        }
+        .map-description2 {
+            flex: 1; /* Allow the description to take up the remaining space */
+            color: white;
+            padding: 20px;
+            font-family: Georgia, 'Times New Roman', Times, serif;
+            font-size: 17px;
+            
+        }
+
+        footer {
+            background-color: #f1f1f1;
+            padding: 15px;
+            text-align: center;
+            margin-top: 20px;
+            clear: both;
+        }
+
+        
+    </style>
+    <script>
+        // Function to reload the page
+        function refreshPage() {
+            location.reload();
+        }
+    </script>
+</head>
+<body style="background-color: #192734;">
+    <!-- Navigation Bar -->
+    <nav class="navbar navbar-expand-lg">
+        <div class="container-fluid">
+            <!-- Navbar brand (Mini-Geoportal) stays on the left -->
+            <a class="navbar-brand" href="#" onclick="refreshPage()">MINI-GEOPORTAL <img src="favicon/portal.png" alt="Mini-Geoportal" style="width: 40px;height: 40px"></a>
+            
+            <!-- Navbar toggler button for mobile view -->
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            
+            <!-- Navbar links -->
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <!-- Add ms-auto to push the nav items to the right -->
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="#" onclick="refreshPage()">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="Mini Project/final.html" target="_blank">Analysis & Downloads</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="documentation.html" target="_blank">Documentation</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="developers.html" target="_blank">Contacts</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href = "about.html"target="_blank">About</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    
+
+    <!-- Welcome Section -->
+    <div class="welcome-section">
+        <h1 style="font-family: Georgia, 'Times New Roman', Times, serif">Welcome to Spatial Data Center: Mini-Geoportal</h1>
+        <p style="font-size:14;font-style:italic;font-family: Georgia, 'Times New Roman', Times, serif">
+            An interactive portal providing seamless access to various geospatial datasets with integrated APIs for visualizing spatial information.
+        </p>
+    </div>
+    <section class="introduction py-4">
+        <div class="container">
+            <p style="font-family: Georgia, 'Times New Roman', Times, serif; font-size: 20px; color: white;">
+                Welcome to the <strong>Mini-Geoportal</strong>, a web-based platform designed to provide powerful geospatial tools and functionalities. This portal features two interactive web maps: the first includes three base layers—OpenStreetMap, Satellite Imagery, and OpenCycleMap—along with dynamic layers that fetch and display real-time geospatial data from APIs. The second web map showcases various geospatial datasets of Nepal, such as river networks, hydropower plants with capacities above 1MW, and more, with advanced filtering capabilities. Additionally, the Mini-Geoportal allows users to perform buffer analyses by uploading their own data, download results in <strong>GeoJSON</strong> format, and access geospatial datasets stored in a PostgreSQL database for download. Explore, analyze, and download geospatial data effortlessly with the <strong>Mini-Geoportal</strong>!
+            </p>
+        </div>
+    </section>
+    <div class="map-container">
+    <!-- Map Section -->
+    <div id="map"></div>
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Leaflet JS -->
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script>
+                // Initialize the map and set the initial view
+        const map = L.map('map').setView([28.3, 84.1], 7);
+
+        // Adding OpenStreetMap tile layer
+        const osmLayer = L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+        }).addTo(map);
+
+        const satelliteLayer = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
+            attribution: '&copy; <a href="https://www.esri.com/">Esri</a> contributors'
+        });        
+        // Adding OpenCycleMap layer
+        const openCycleLayer = L.tileLayer('https://{s}.tile.thunderforest.com/cycle/{z}/{x}/{y}.png?apikey=0e5c285601f64405bd7dcf9880f2ca3d', {
+            attribution: '&copy; <a href="https://www.thunderforest.com/">Thunderforest</a>, © OpenStreetMap contributors',
+            subdomains: ['a', 'b', 'c']
+        });
+        // Layer control initialization
+        const layerControl = L.control.layers(
+            {
+                "OpenStreetMap": osmLayer,
+                "Satellite Imagery": satelliteLayer,
+                "OpenCycleMap": openCycleLayer
+            },
+            {},
+            { collapsed: true }
+        ).addTo(map);
+        // Initialize the soil moisture layer group
+        const soilMoistureLayer = L.layerGroup();
+
+        // Function to fetch and display soil moisture data
+        map.on('click', async function (e) {
+            const { lat, lng } = e.latlng;
+
+            try {
+                // Fetch soil moisture data from Open-Meteo API
+                const soilMoistureResponse = await fetch(
+                    `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lng}&hourly=soil_moisture_0_to_1cm,soil_moisture_1_to_3cm,soil_moisture_3_to_9cm,soil_moisture_9_to_27cm`
+                );
+                const soilMoistureData = await soilMoistureResponse.json();
+
+                // To Extract soil moisture data for the current time
+                const timeIndex = 0;
+                const soilMoisture0_1cm = soilMoistureData.hourly.soil_moisture_0_to_1cm?.[timeIndex] || "N/A";
+                const soilMoisture1_3cm = soilMoistureData.hourly.soil_moisture_1_to_3cm?.[timeIndex] || "N/A";
+                const soilMoisture3_9cm = soilMoistureData.hourly.soil_moisture_3_to_9cm?.[timeIndex] || "N/A";
+                const soilMoisture9_27cm = soilMoistureData.hourly.soil_moisture_9_to_27cm?.[timeIndex] || "N/A";
+
+                // Create a custom marker icon for soil moisture
+                const soilIcon = L.icon({
+                    iconUrl: 'data/soilmoist.png',
+                    iconSize: [32, 32],
+                    iconAnchor: [16, 32],
+                    popupAnchor: [0, -32]
+                });
+
+                // Create a marker with the soil moisture data
+                const marker = L.marker([lat, lng], { icon: soilIcon }).addTo(soilMoistureLayer);
+
+                // Create popup content
+                const soilMoistureInfo = 
+                    `<b>Soil Moisture Data:</b><br>
+                    <b>Location:</b> ${lat.toFixed(3)}, ${lng.toFixed(3)}<br>
+                    <b>0-1 cm Depth:</b> ${soilMoisture0_1cm} %<br>
+                    <b>1-3 cm Depth:</b> ${soilMoisture1_3cm} %<br>
+                    <b>3-9 cm Depth:</b> ${soilMoisture3_9cm} %<br>
+                    <b>9-27 cm Depth:</b> ${soilMoisture9_27cm} %<br>`;
+
+                // Bind popup to the marker
+                marker.bindPopup(soilMoistureInfo).openPopup();
+            } catch (error) {
+                console.error("Error fetching soil moisture data:", error);
+
+                // Display error popup
+                L.popup()
+                    .setLatLng([lat, lng])
+                    .setContent("<b>Error fetching soil moisture data.</b>")
+                    .openOn(map);
+            }
+        });
+        layerControl.addOverlay(soilMoistureLayer, "Soil Moisture");
+
+        // Initialize the cloud cover layer group
+        const cloudCoverLayer = L.layerGroup();
+
+        // Function to fetch and display cloud cover data
+        map.on('click', async function (e) {
+            const { lat, lng } = e.latlng;
+
+            try {
+                // Fetch cloud cover data from Open-Meteo API
+                const cloudCoverResponse = await fetch(
+                    `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lng}&hourly=cloud_cover_low,cloud_cover_mid,cloud_cover_high`
+                );
+                const cloudCoverData = await cloudCoverResponse.json();
+
+                // To Extract cloud cover data for the current time
+                const timeIndex = 0;
+                const cloudCoverLow = cloudCoverData.hourly.cloud_cover_low?.[timeIndex] || "N/A";
+                const cloudCoverMid = cloudCoverData.hourly.cloud_cover_mid?.[timeIndex] || "N/A";
+                const cloudCoverHigh = cloudCoverData.hourly.cloud_cover_high?.[timeIndex] || "N/A";
+
+                // Create a custom marker icon for cloud cover
+                const cloudIcon = L.icon({
+                    iconUrl: 'data/cloud.png', 
+                    iconSize: [32, 32],
+                    iconAnchor: [16, 32],
+                    popupAnchor: [0, -32]
+                });
+
+                // Create a marker with the cloud cover data
+                const marker = L.marker([lat, lng], { icon: cloudIcon }).addTo(cloudCoverLayer);
+
+                // Create popup content
+                const cloudCoverInfo = 
+                    `<b>Cloud Cover Data:</b><br>
+                    <b>Location:</b> ${lat.toFixed(3)}, ${lng.toFixed(3)}<br>
+                    <b>Low Cloud Cover:</b> ${cloudCoverLow} %<br>
+                    <b>Mid Cloud Cover:</b> ${cloudCoverMid} %<br>
+                    <b>High Cloud Cover:</b> ${cloudCoverHigh} %<br>`;
+
+                // Bind popup to the marker
+                marker.bindPopup(cloudCoverInfo).openPopup();
+            } catch (error) {
+                console.error("Error fetching cloud cover data:", error);
+
+                // Display error popup
+                L.popup()
+                    .setLatLng([lat, lng])
+                    .setContent("<b>Error fetching cloud cover data.</b>")
+                    .openOn(map);
+            }
+        });
+
+        layerControl.addOverlay(cloudCoverLayer, "Cloud Cover");
+
+        // Initialize the wind direction layer group
+        const windDirectionLayer = L.layerGroup();
+
+        // Function to fetch and display wind direction data
+        map.on('click', async function (e) {
+            const { lat, lng } = e.latlng;
+
+            try {
+                // Fetch wind direction data from Open-Meteo API
+                const windDirectionResponse = await fetch(
+                    `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lng}&hourly=wind_direction_10m,wind_direction_80m,wind_direction_120m,wind_direction_180m`
+                );
+                const windDirectionData = await windDirectionResponse.json();
+
+                // To Extract wind direction data for the current time
+                const timeIndex = 0;
+                const windDirection10m = windDirectionData.hourly.wind_direction_10m?.[timeIndex] || "N/A";
+                const windDirection80m = windDirectionData.hourly.wind_direction_80m?.[timeIndex] || "N/A";
+                const windDirection120m = windDirectionData.hourly.wind_direction_120m?.[timeIndex] || "N/A";
+                const windDirection180m = windDirectionData.hourly.wind_direction_180m?.[timeIndex] || "N/A";
+
+                // Create a custom marker icon for wind direction
+                const windIcon = L.icon({
+                    iconUrl: 'data/wind.png',  
+                    iconSize: [32, 32],
+                    iconAnchor: [16, 32],
+                    popupAnchor: [0, -32]
+                });
+
+                // Create a marker with the wind direction data
+                const marker = L.marker([lat, lng], { icon: windIcon }).addTo(windDirectionLayer);
+
+                // Create popup content
+                const windDirectionInfo = 
+                    `<b>Wind Direction Data:</b><br>
+                    <b>Location:</b> ${lat.toFixed(3)}, ${lng.toFixed(3)}<br>
+                    <b>10m Wind Direction:</b> ${windDirection10m}°<br>
+                    <b>80m Wind Direction:</b> ${windDirection80m}°<br>
+                    <b>120m Wind Direction:</b> ${windDirection120m}°<br>
+                    <b>180m Wind Direction:</b> ${windDirection180m}°<br>`;
+
+                // Bind popup to the marker
+                marker.bindPopup(windDirectionInfo).openPopup();
+            } catch (error) {
+                console.error("Error fetching wind direction data:", error);
+
+                // Display error popup
+                L.popup()
+                    .setLatLng([lat, lng])
+                    .setContent("<b>Error fetching wind direction data.</b>")
+                    .openOn(map);
+            }
+        });
+
+        layerControl.addOverlay(windDirectionLayer, "Wind Direction");
+
+        // Initialize the air quality and weather layer group
+        const airQualityWeatherLayer = L.layerGroup();
+
+        // Function to fetch and display air quality and weather data
+        map.on('click', async function (e) {
+            const { lat, lng } = e.latlng;
+
+            try {
+                // Fetch air quality data from Open-Meteo
+                const airQualityResponse = await fetch(`https://air-quality-api.open-meteo.com/v1/air-quality?latitude=${lat}&longitude=${lng}&hourly=pm10,pm2_5`);
+                const airQualityData = await airQualityResponse.json();
+                const pm10 = airQualityData.hourly.pm10[0] || "N/A";
+                const pm2_5 = airQualityData.hourly.pm2_5[0] || "N/A";
+
+                // Fetch weather data from OpenWeather
+                const WEATHER_API_KEY = "1a8e574fd6b094d123249364af4ee1a1";
+                const weatherResponse = await fetch(`https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lng}&appid=${WEATHER_API_KEY}&units=metric`);
+                const weatherData = await weatherResponse.json();
+
+                const weatherInfo = 
+                    `<b>Location:</b> ${weatherData.name || "Unknown"}<br>
+                    <b>Temperature:</b> ${weatherData.main.temp}°C<br>
+                    <b>Weather:</b> ${weatherData.weather[0].description}<br>
+                    <b>Humidity:</b> ${weatherData.main.humidity}%<br>
+                    <b>PM10:</b> ${pm10} µg/m³<br>
+                    <b>PM2.5:</b> ${pm2_5} µg/m³`;
+                const weathIcon = L.icon({
+                        iconUrl: 'data/weathpollution.png',  
+                        iconSize: [32, 32],
+                        iconAnchor: [16, 32],
+                        popupAnchor: [0, -32]
+                    });
+            
+                const marker = L.marker([lat, lng],{icon : weathIcon}).addTo(airQualityWeatherLayer);
+                marker.bindPopup(weatherInfo).openPopup();
+            } catch (error) {
+                console.error("Error fetching air quality or weather data:", error);
+                L.popup()
+                    .setLatLng([lat, lng])
+                    .setContent("<b>Error fetching air quality or weather data.</b>")
+                    .openOn(map);
+            }
+        });
+        layerControl.addOverlay(airQualityWeatherLayer, "Air Quality and Weather");
+    </script>
+    <div class="map-description">
+        <h3 style="color:#FFD700">About This Web Map</h3>
+        <p>
+            <!-- Fill this paragraph with your description later -->
+            This web map using the Leaflet library allows interaction with 
+            an appealing, dynamic mapping environment. The application
+             will include base layers for a user to switch among by using the control panel - namely 
+             OpenStreetMap, Satellite Imagery by Esri, and OpenCycleMap - as well
+              as a handful of real-time environmental data visualizations pulled
+               in via APIs such as Open-Meteo and OpenWeather.
+                These layers include the soil moisture,
+                 cloud cover, wind direction, air quality,
+                  and weather information that is shown in pop-ups
+                   when the user clicks on the map. The data is arranged
+                    in well-defined layers, and users can choose to show
+                     any of them to display only what they find most useful.
+                      This map visualizes environmental factors down to the least
+                       detail to help users see the geospatial data
+                        in correspondence with the base map.
+        </p>
+    </div>
+    </div>
+
+    <div class="map-container2">
+        
+        <div class="map-description2">
+            <h3 style="color:#FFD700;border: 3px solid gold; border-radius: 15px; padding: 10px;display: inline-block;">Datasets, Filtering, and Visualization</h3>
+            <p>
+                The following web map provides a comprehensive platform for visualizing and interacting with geographical data. It offers several base map options, including OpenStreetMap, Satellite Imagery, and OpenCycleMap, alongside various data layers and filtering functionalities. Also, these available datasets can be downloaded by users.
+            </p>
+            <p>Available datasets in the web map include:</p>
+            <ol>
+                <li>Province Boundaries</li>
+                <li>District Boundaries</li>
+                <li>Local Level Boundaries</li>
+                <li>Index Sheet</li>
+                <li>Hydropowers With Capacity More than 1MW</li>
+                <li>Transmission Lines</li>
+                <li>Airports</li>
+    
+                <li>Rivers</li>
+                
+                
+            </ol>
+            <p>The web map provides the following filtering functionalities:</p>
+            <ol>
+                <li>Filtering Hydropowers Based on Province and District</li>
+                <li>Filtering Rivers by Name</li>
+                <li>Filtering Transmission Lines by Province</li>
+                <li>Filtering Airports by Province</li>
+                <li>Filtering Index Sheets by District</li>
+            </ol>
+        </div>
+        </div>
+
+
+        
+        <div >
+            <iframe id="map-container" src="1stinternal/index.html"></iframe>
+        </div>
+    
+        
+    <footer style="background-color: #15202B;color: #fff; text-align: center; padding: 10px;">
+        <p>&copy; 2025 Mini-Geoportal. All Rights Reserved.</p>
+        <p>Designed and Developed by <b style="color: #FFD700;">Big Dawgs</b></p>
+    </footer>
+</body>
+</html>
